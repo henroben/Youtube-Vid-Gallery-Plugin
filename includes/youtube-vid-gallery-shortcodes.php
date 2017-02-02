@@ -27,7 +27,7 @@
 			'post_type'     => 'video',
 			'post_status'   => 'published',
 			'orderby'       => 'created',
-			'order'         => 'ASC',
+			'order'         => 'DESC',
 			'post_per_page' => $atts['count'],
 			'tax_query'     => $terms
 		);
@@ -54,7 +54,11 @@
 
 				$output .= '<div class="yvg-video">';
 				$output .= '<h4>' . get_the_title() . '</h4>';
-				$output .= '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0" allowfullscreen></iframe>';
+				if(get_settings('yvg_setting_disable_fullscreen')) {
+					$output .= '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0"></iframe>';
+				} else {
+					$output .= '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0" allowfullscreen></iframe>';
+				}
 				$output .= '<div>' . $details . '</div>';
 				$output .= '</div><br><hr>';
 			}
