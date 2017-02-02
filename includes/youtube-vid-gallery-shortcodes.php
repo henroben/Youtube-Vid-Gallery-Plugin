@@ -25,7 +25,7 @@
 		// Query Args
 		$args = array(
 			'post_type'     => 'video',
-			'post_status'   => 'published',
+			'post_status'   => 'publish',
 			'orderby'       => 'created',
 			'order'         => 'DESC',
 			'post_per_page' => $atts['count'],
@@ -53,12 +53,14 @@
 				$details = get_post_meta($post->ID, 'details', true);
 
 				$output .= '<div class="yvg-video">';
-				$output .= '<h4>' . get_the_title() . '</h4>';
+				$output .= '<h4>' . $args['before_title'] . get_the_title() . $args['after_title'] . '</h4>';
+				$output .= '<div class="iframe-container iframe-container-16x9">';
 				if(get_settings('yvg_setting_disable_fullscreen')) {
-					$output .= '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0"></iframe>';
+					$output .= '<iframe src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0"></iframe>';
 				} else {
-					$output .= '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0" allowfullscreen></iframe>';
+					$output .= '<iframe src="https://www.youtube.com/embed/' . $video_id . '" frameborder="0" allowfullscreen></iframe>';
 				}
+				$output .= '</div>';
 				$output .= '<div>' . $details . '</div>';
 				$output .= '</div><br><hr>';
 			}
